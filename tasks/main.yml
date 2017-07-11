@@ -1,0 +1,26 @@
+---
+- name: Add elasticsearch repository
+  yum_repository:
+    name: elasticsearch-5.x
+    description: elasticsearch repository for 5.x packages
+    baseurl: https://artifacts.elastic.co/packages/5.x/yum
+    gpgkey: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+- name: Add Elasticsearch key to keystore
+  rpm_key:
+    state: present
+    key: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+- name: Install Packetbeat
+  yum:
+    name: packetbeat
+    state: latest
+- name: Configure packetbeat to collect network stats
+  template:
+    src: packetbeat.yml.j2
+    dest: /etc/packetbeat/packetbeat.yml
+  notify: "notify packetbeat for restart"
+- name: Configure packetbeat collection in central logstash
+  template: 
+    src: network.conf.j2
+    dest: /etc/logstash/conf.d/{{inventory_hostname}}_network.conf
+  notify: "notify logstash for restart"
+  delegate_to: '{{logstash_server}}'

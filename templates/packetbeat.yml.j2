@@ -1,0 +1,26 @@
+packetbeat.interfaces.device: any
+
+packetbeat.flows:
+  timeout: 30s
+  period: 10s
+
+packetbeat.protocols:
+- type: icmp
+  enabled: true
+
+- type: ssh
+  ports: [22]
+
+- type: http
+  ports: [80, 8080]
+  real_ip_header: "X-Forwarded-For"
+
+- type: mysql
+  ports: [3306]
+
+- type: pgsql
+  ports: [5432]
+
+
+output.logstash:
+  hosts: ["{{logstash_server}}:5044"]
