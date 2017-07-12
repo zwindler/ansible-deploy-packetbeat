@@ -18,6 +18,12 @@
     src: packetbeat.yml.j2
     dest: /etc/packetbeat/packetbeat.yml
   notify: "notify packetbeat for restart"
+- name: Configure Dashboard if deploy_dashboard has been set in vars
+  lineinfile: 
+    path: /etc/packetbeat/packetbeat.yml
+    line: "dashboards.enabled: true"
+  notify: "notify packetbeat for restart"
+  when: deploy_dashboard | bool
 - name: Configure packetbeat collection in central logstash
   template: 
     src: network.conf.j2
