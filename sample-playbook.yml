@@ -1,0 +1,7 @@
+---
+- name: Install packetbeat
+  hosts: localhost
+  vars:
+    deploy_dashboard: false
+  roles:
+    - { role: ansible-deploy-packetbeat }
