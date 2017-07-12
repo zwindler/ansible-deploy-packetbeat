@@ -20,7 +20,8 @@ cat deploy_packetbeat.yml
 - name: Install packetbeat
   hosts: localhost
   vars:
-    deploy_dashboard: false
+    - elk_server: localhost
+    - deploy_dashboard: false
   roles:
     - { role: ansible-deploy-packetbeat }
 ```
