@@ -2,6 +2,6 @@
 - name: "notify packetbeat for restart"
   service: name=packetbeat state=restarted enabled=yes
 
-- name: "notify logstash for restart"
-  service: name=logstash state=restarted enabled=yes
-  delegate_to: '{{logstash_server}}'
+- name: "notify elk for restart"
+  service: name=elk state=restarted enabled=yes
+  delegate_to: '{{elk_server}}'

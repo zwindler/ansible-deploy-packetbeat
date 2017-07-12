@@ -24,9 +24,9 @@
     line: "dashboards.enabled: true"
   notify: "notify packetbeat for restart"
   when: deploy_dashboard | bool
-- name: Configure packetbeat collection in central logstash
+- name: Configure packetbeat collection in central elk
   template: 
     src: network.conf.j2
-    dest: /etc/logstash/conf.d/{{inventory_hostname}}_network.conf
-  notify: "notify logstash for restart"
-  delegate_to: '{{logstash_server}}'
+    dest: /etc/elk/conf.d/{{inventory_hostname}}_network.conf
+  notify: "notify elk for restart"
+  delegate_to: '{{elk_server}}'

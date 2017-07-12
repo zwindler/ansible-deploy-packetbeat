@@ -21,6 +21,5 @@ packetbeat.protocols:
 - type: pgsql
   ports: [5432]
 
-
-output.logstash:
-  hosts: ["{{logstash_server}}:5044"]
+output.elasticsearch:
+  hosts: ["{{elk_server}}:5044"]
